@@ -10,6 +10,7 @@ const connectWithDb = () => {
     .then(console.log("DB connected Succcessfully"))
     .catch( (error) => {
         console.log("DB facing Connection Issues");
+        console.log('.');
         console.log(error);
         process.exit(1);
     })
