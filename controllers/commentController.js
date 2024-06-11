@@ -15,8 +15,18 @@ exports.createComment = async(req, res) => {
         
         // save the new comment into the databease
         const savedComment = await comment.save();
-    }
-    catch(error) {
 
+        // find the post by ID add the new comment to its comments array
+        const updatePost = await Post.findByIdAndUpdate(post, {$push: {commnets: saveComment._id} },{new: true} )
+                           .populate("comments") // populate the comments array with comment documents
+                           .exec();
+        res.json({
+            post: updatedPost
+        });                
+     }
+    catch(error) {
+        return res.status(500).json({
+            error: "Error while creating coment",
+        });
     }
-}
+};
